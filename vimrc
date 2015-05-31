@@ -58,6 +58,8 @@ fu Select_c_style()
 endf
 " === init common ===
 function! Init_common() 
+    " ==== chdir ====
+    set autochdir
     " ==== color ====
     set t_Co=256
     " ==== encoding ====
