@@ -78,7 +78,7 @@ function! Init_common()
     nmap <F9> :call FoldColumnToggle()<cr>
     nmap <F10> :set invnumber<cr>
     " ==== fold related ====
-    set colorcolumn=80
+    "set colorcolumn=80
     set foldmethod=syntax
     set foldlevelstart=99
     
