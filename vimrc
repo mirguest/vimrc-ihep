@@ -37,17 +37,8 @@ source $VIMRUNTIME/vimrc_example.vim
 
 filetype plugin indent on
 
-set t_Co=256
-
-set pastetoggle=<F2>
-
-"set tw=79
-"set wrap
-"set linebreak
-
-set autochdir
-
-nmap <F9> :call FoldColumnToggle()<cr>
+" == initialize ===
+" === fold column toggle ===
 function! FoldColumnToggle()
     if &foldcolumn
         setlocal foldcolumn=0
@@ -55,60 +46,7 @@ function! FoldColumnToggle()
         setlocal foldcolumn=2
     endif
 endfunction
-
-
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8,gbk,cp936
-set termencoding=utf-8
-set wildmenu
-map <c-w><c-f> :FirstExplorerWindow<cr>
-map <c-w><c-b> :BottomExplorerWindow<cr>
-map <c-w><c-t> :WMToggle<cr> 
-let g:winManagerWindowLayout='FileExplorer|TagList|BufExplorer'
-let g:winManagerWidth=35
-nmap <F3> :WMToggle<cr>
-nmap <F10> :set invnumber<cr>
-
-"set langmenu=zh_CN.UTF-8
-
-"language messages zh_CN.utf-8
-"language messages en_US.utf8
-"set helplang=cn
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-
-"set guifont=Courier\ New\ 12
-set guifont=DejaVu\ Sans\ Mono\ 10
-set mouse=""
-set mousehide
-
-
-let s:extfname = expand("%:e")
-if s:extfname ==? "py"
-    iabbrev #e #!/usr/bin/env python<CR># -*- coding:utf-8 -*-<CR># author: lintao
-
-endif
-
-if s:extfname ==? "tex"
-    iabbrev #p \begin{frame}<CR>\frametitle{}<CR>\begin{itemize}<CR>\item<CR>\end{itemize}<CR>\end{frame}
-    set spell
-endif
-
-map <C-F12> <Plug>VimwikiToggleListItem
-
-filetype plugin on
-filetype plugin indent on
-syntax enable
-syntax on
-
-
-" map something
-map <leader>t2 <ESC>:set ts=2<CR>
-map <leader>t4 <ESC>:set ts=4<CR>
-map <leader>t8 <ESC>:set ts=8<CR>
-map <leader>tr <ESC>:%retab<CR>
-
-" copy from python-src/Misc/Vim/vimrc
+" === select c style ===
 fu Select_c_style()
     if search('^\t', 'n')
         set tabstop=8
@@ -118,35 +56,74 @@ fu Select_c_style()
         set shiftwidth=4
     en
 endf
-au BufRead,BufNewFile * call Select_c_style()
-au BufRead,BufNewFile Makefile* set noexpandtab
+" === init common ===
+function! Init_common() 
+    " ==== color ====
+    set t_Co=256
+    " ==== encoding ====
+    set encoding=utf-8
+    set fileencoding=utf-8
+    set fileencodings=utf-8,gbk,cp936
+    set termencoding=utf-8
+    " ==== menu ====
+    set wildmenu
+    " ==== helper window ====
+    map <c-w><c-f> :FirstExplorerWindow<cr>
+    map <c-w><c-b> :BottomExplorerWindow<cr>
+    map <c-w><c-t> :WMToggle<cr> 
+    let g:winManagerWindowLayout='FileExplorer|TagList|BufExplorer'
+    let g:winManagerWidth=35
+    nmap <F3> :WMToggle<cr>
+    " ==== the toggle of fold column and line number ====
+    nmap <F9> :call FoldColumnToggle()<cr>
+    nmap <F10> :set invnumber<cr>
+    " ==== fold related ====
+    set colorcolumn=80
+    set foldmethod=syntax
+    set foldlevelstart=99
+    
+    let fortran_free_source=1
+    unlet! fortran_fixed_source
+    
+    let fortran_more_precise=1
+    let fortran_do_enddo=1
+    let fortran_fold=1
+    let fortran_fold_conditionals=1
+    
+    " For Javascript
+    let javaScript_fold=1         " JavaScript
+    " ==== disable the mouse ====
+    set mouse=""
+    set mousehide
+    " ==== syntax relatex ====
+    filetype plugin on
+    filetype plugin indent on
+    syntax enable
+    syntax on
+    " ==== indent color ====
+    let g:indent_guides_auto_colors=0
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=4
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+    
+    let g:indent_guides_guide_size=1
+    
+    " ==== different file type ====
+    au BufRead,BufNewFile *.icc                set filetype=cpp
+    au BufRead,BufNewFile *.icpp                set filetype=cpp
+    au BufRead,BufNewFile wscript                set filetype=python
+    au BufNewFile,BufRead *.cuh                  setf cuda 
+    " ==== status ===
+    set laststatus=2
+    " ==== show the tabs ====
+    set list
+    set listchars=tab:\|\ 
+    " function end
+    " ==== status line ====
+    set laststatus=2
+endfunction
 
-let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=4
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-
-au BufRead,BufNewFile *.icc                set filetype=cpp
-au BufRead,BufNewFile *.icpp                set filetype=cpp
-au BufRead,BufNewFile wscript                set filetype=python
-au BufNewFile,BufRead *.cuh                  setf cuda 
-
-let g:indent_guides_guide_size=1
-
-set laststatus=2
-
-"let g:airline_theme="murmur"
-"
-set guioptions-=m
-set guioptions-=T
-
-" check whether readonly or not
-au BufRead,BufNewFile * call Check_read_only()
-fu Check_read_only() 
-echo &readonly
-if &readonly 
-    echo "readonly"
-else
-    echo "not readonly"
+" === init edit ===
+function! Init_edit()
     set nu
     set expandtab
     set tabstop=4
@@ -162,34 +139,28 @@ else
     set smartindent
     set smarttab
     set ambiwidth=double
-    set list
-    set listchars=tab:\|\ 
-    set foldmethod=syntax
     set foldcolumn=2
-    set foldlevelstart=99
 
-    set colorcolumn=80
+endfunction
 
-    let fortran_free_source=1
-    unlet! fortran_fixed_source
+" === init readonly ===
+function! Init_readonly()
+    set foldcolumn=0
+    set nonu
+endfunction
 
-    let fortran_more_precise=1
-    let fortran_do_enddo=1
-    let fortran_fold=1
-    let fortran_fold_conditionals=1
-
-    " For Javascript
-    let javaScript_fold=1         " JavaScript
-endif
-endf
-
-
-
+" === init ===
+call Init_common()
+au BufRead,BufNewFile * call Check_read_only()
+function! Check_read_only() 
+    if &readonly 
+        call Init_readonly()
+    else
+        call Init_edit()
+    endif
+endfunction
+" === color scheme ===
 let g:solarized_termcolors=256
 "set background=light
 set background=dark
 colorscheme solarized
-"
-"set background=light
-"colorscheme torte
-"
