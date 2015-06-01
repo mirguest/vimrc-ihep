@@ -150,10 +150,7 @@ function! Init_readonly()
     set foldcolumn=0
     set nonu
 endfunction
-
-" === init ===
-call Init_common()
-au BufRead,BufNewFile * call Check_read_only()
+" === check readonly or edit ===
 function! Check_read_only() 
     if &readonly 
         call Init_readonly()
@@ -161,6 +158,20 @@ function! Check_read_only()
         call Init_edit()
     endif
 endfunction
+
+" === init according the buffer ===
+function! Init_buffer()
+    " ==== edit or readonly ====
+    au BufRead,BufNewFile * call Check_read_only()
+    " ==== c and makefile ====
+    au BufRead,BufNewFile * call Select_c_style()
+    au BufRead,BufNewFile Makefile* setlocal noexpandtab
+endfunction
+
+" === init ===
+call Init_common()
+call Init_buffer()
+
 " === color scheme ===
 let g:solarized_termcolors=256
 "set background=light
