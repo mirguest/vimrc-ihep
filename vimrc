@@ -143,6 +143,14 @@ function! Init_edit()
     set ambiwidth=double
     set foldcolumn=2
 
+    let s:extfname = expand("%:e")
+    if s:extfname ==? "py"
+        iabbrev #e #!/usr/bin/env python<CR># -*- coding:utf-8 -*-<CR># author: lintao
+    elseif s:extfname ==? "tex"
+        iabbrev #p \begin{frame}<CR>\frametitle{}<CR>\begin{itemize}<CR>\item<CR>\end{itemize}<CR>\end{frame}
+        set spell
+    endif
+
 endfunction
 
 " === init readonly ===
