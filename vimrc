@@ -19,6 +19,7 @@ Plugin 'bufexplorer.zip'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'atdt/vim-mediawiki'
+"Plugin 'editorconfig/editorconfig-vim'
 "Plugin 'klen/python-mode'
 Plugin 'bash-support.vim'
 "Plugin 'bling/vim-airline'
@@ -28,6 +29,8 @@ Plugin 'zeis/vim-kolor'
 Plugin 'altercation/vim-colors-solarized'
 "Plugin 'VimOutliner'
 Plugin 'VOoM'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'cern_root.vim'
 " End My bundles
 "
 "
@@ -122,6 +125,8 @@ function! Init_common()
     " function end
     " ==== status line ====
     set laststatus=2
+    " ==== show cursor line ====
+    set cursorline
 endfunction
 
 " === init edit ===
