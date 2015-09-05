@@ -19,6 +19,7 @@ Plugin 'bufexplorer.zip'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'atdt/vim-mediawiki'
+"Plugin 'editorconfig/editorconfig-vim'
 "Plugin 'klen/python-mode'
 Plugin 'bash-support.vim'
 "Plugin 'bling/vim-airline'
@@ -28,6 +29,8 @@ Plugin 'zeis/vim-kolor'
 Plugin 'altercation/vim-colors-solarized'
 "Plugin 'VimOutliner'
 Plugin 'VOoM'
+Plugin 'beyondmarc/glsl.vim'
+
 " End My bundles
 "
 "
@@ -58,6 +61,8 @@ fu Select_c_style()
 endf
 " === init common ===
 function! Init_common() 
+    " ==== leader ====
+    let mapleader = ","
     " ==== chdir ====
     set autochdir
     " ==== color ====
@@ -77,8 +82,9 @@ function! Init_common()
     let g:winManagerWidth=35
     nmap <F3> :WMToggle<cr>
     " ==== the toggle of fold column and line number ====
-    nmap <F9> :call FoldColumnToggle()<cr>
+    nmap <F8> :call FoldColumnToggle()<cr>
     nmap <F10> :set invnumber<cr>
+    set pastetoggle=<F2>
     " ==== fold related ====
     "set colorcolumn=80
     set foldmethod=syntax
