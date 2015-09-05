@@ -31,6 +31,8 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'VOoM'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'cern_root.vim'
+Plugin 'gilgigilgil/anderson.vim'
+Plugin 'chriskempson/base16-vim'
 " End My bundles
 "
 "
@@ -186,7 +188,12 @@ call Init_common()
 call Init_buffer()
 
 " === color scheme ===
-let g:solarized_termcolors=256
-"set background=light
+"let g:solarized_termcolors=256
+""set background=light
+"set background=dark
+"colorscheme solarized
+"colorscheme anderson
+"
 set background=dark
-colorscheme solarized
+let base16colorspace=256
+colorscheme base16-default
