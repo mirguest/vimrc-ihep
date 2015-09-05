@@ -31,6 +31,10 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'VOoM'
 Plugin 'beyondmarc/glsl.vim'
 
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'cern_root.vim'
+Plugin 'gilgigilgil/anderson.vim'
+Plugin 'chriskempson/base16-vim'
 " End My bundles
 "
 "
@@ -128,6 +132,8 @@ function! Init_common()
     " function end
     " ==== status line ====
     set laststatus=2
+    " ==== show cursor line ====
+    set cursorline
 endfunction
 
 " === init edit ===
@@ -148,6 +154,14 @@ function! Init_edit()
     set smarttab
     set ambiwidth=double
     set foldcolumn=2
+
+    let s:extfname = expand("%:e")
+    if s:extfname ==? "py"
+        iabbrev #e #!/usr/bin/env python<CR># -*- coding:utf-8 -*-<CR># author: lintao
+    elseif s:extfname ==? "tex"
+        iabbrev #p \begin{frame}<CR>\frametitle{}<CR>\begin{itemize}<CR>\item<CR>\end{itemize}<CR>\end{frame}
+        set spell
+    endif
 
 endfunction
 
@@ -179,7 +193,12 @@ call Init_common()
 call Init_buffer()
 
 " === color scheme ===
-let g:solarized_termcolors=256
-"set background=light
+"let g:solarized_termcolors=256
+""set background=light
+"set background=dark
+"colorscheme solarized
+"colorscheme anderson
+"
 set background=dark
-colorscheme solarized
+let base16colorspace=256
+colorscheme base16-default
