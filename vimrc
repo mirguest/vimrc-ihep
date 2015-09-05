@@ -188,12 +188,13 @@ call Init_common()
 call Init_buffer()
 
 " === color scheme ===
-"let g:solarized_termcolors=256
 ""set background=light
-"set background=dark
-"colorscheme solarized
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
+"
 "colorscheme anderson
 "
-set background=dark
-let base16colorspace=256
-colorscheme base16-default
+"set background=dark
+"let base16colorspace=256
+"colorscheme base16-default
