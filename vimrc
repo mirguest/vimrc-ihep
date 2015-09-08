@@ -35,6 +35,7 @@ Plugin 'beyondmarc/glsl.vim'
 Plugin 'cern_root.vim'
 Plugin 'gilgigilgil/anderson.vim'
 Plugin 'chriskempson/base16-vim'
+Plugin 'NLKNguyen/easy-navigate.vim'
 " End My bundles
 "
 "
@@ -203,3 +204,5 @@ call Init_buffer()
 "set background=dark
 "let base16colorspace=256
 "colorscheme base16-default
+"hi CursorLine term=NONE ctermbg=11
+hi CursorLine cterm=NONE ctermbg=255
